@@ -1,0 +1,152 @@
+$site-main: #fff;
+$site-body-text: #333;
+$site-green: #98e698;
+$site-black: #000;
+$site-white: #fff;
+
+
+html {
+  font-size: 62.5%;
+  font-family: 'Oswald', sans-serif;
+}
+
+body {
+  background: $site-main;
+  color: $site-body-text;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: $site-black;
+}
+
+.alt-header {
+  color: $site-white;
+}
+
+h1 {
+  font-size: 7.2rem;
+  margin: 1rem 0;
+}
+
+h2 {
+  font-size: 5rem;
+}
+
+h3 {
+  font-size: 3.5rem;
+}
+
+h4 {
+  font-size: 2.4rem;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; /* added line */
+}
+
+
+//Header
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.header__inner-left {
+  width: 70%;
+}
+
+.header__inner-right {
+  width: 30%;
+  position: relative;
+  border-left: 4px solid $site-black;
+}
+
+.header__contact--items {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 2rem 0.5rem 0;
+
+  @media  (min-width: 825px) {
+    max-width: 180px;
+    width: 60%;
+    padding: 0.5rem;
+  }
+
+  span {
+    height: 51px;
+    margin-bottom: 1rem;
+  }
+
+  svg {
+    width: 45px;
+    height: auto;
+    border: 3px solid $site-black;
+  }
+
+  .contact-item:hover svg {
+
+    .st0 {
+      fill: $site-black;
+      transition: all 0.8s ease-in;
+    }
+
+    .st1 {
+      fill: $site-green;
+      transition: all 0.8s ease-in;
+    }
+  }
+}
+
+.header__print {
+  display: none;
+
+  @media (min-width: 825px) {
+    left: -61px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    background: $site-black;
+    color: $site-white;
+    padding: 1rem;
+    transform: rotate(-90deg) translate(25%, -38%);
+  }
+}
+
+.header__find {
+  margin-top: 0;
+}
+
+.header__find-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px soild $site-black;
+}
+
+.print-me {
+  color: $site-white;
+  font-size: 24px;
+}
