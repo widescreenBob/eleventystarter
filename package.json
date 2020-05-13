@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "gulp build & gulp watch & eleventy --serve",
+    "dev": "gulp build && gulp watch && eleventy --watch",
     "build": "gulp build && eleventy",
     "lintJS": "gulp lint-js",
     "javas": "gulp js"
@@ -30,21 +30,26 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
-    "eslint": "^5.16.0",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "browser-sync": "^2.26.7",
+    "eslint": "^7.0.0",
+    "glob": "^7.1.6",
+    "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-babel": "^8.0.0",
     "gulp-cssnano": "^2.1.3",
     "gulp-eslint": "^6.0.0",
+    "gulp-load-plugins": "^2.0.3",
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.0.2",
+    "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
+    "gulp-srcset": "^2.3.1",
     "gulp-stylelint": "^13.0.0",
     "prettier-eslint": "^9.0.1",
-    "stylelint": "^13.3.2",
+    "stylelint": "^13.3.3",
     "stylelint-config-standard": "^20.0.0",
-    "stylelint-scss": "^3.17.0"
+    "stylelint-scss": "^3.17.2"
   }
 }

@@ -7,6 +7,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
 const rename = require('gulp-rename');
+var browserSync = require('browser-sync').create();
 
 // The css command that compiles the scss to css and moves it to dist.
 gulp.task('css', function () {
@@ -16,7 +17,8 @@ gulp.task('css', function () {
     .pipe(autoprefixer())
     .pipe(cssnano())
     .on('error', sass.logError)
-    .pipe(gulp.dest('./dist/style/'));
+    .pipe(gulp.dest('./dist/style/'))
+    .pipe(browserSync.stream());
 });
 
 // The js command that runs the src js through babel and move it to dist.
@@ -32,14 +34,23 @@ gulp.task('js', function () {
       })
     )
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./dist/js'));
+    .pipe(gulp.dest('./dist/js'))
+    .pipe(browserSync.stream());
 });
 
 // The watch command, that watches scss and js files for changes.
 // It then runs the lint and compile commands.
 gulp.task('watch', function () {
+  browserSync.init({
+    server: {
+      baseDir: './dist/'
+    }
+  });
   gulp.watch(['./src/style/**/*.scss', './src/js/**/*.js'],
     gulp.parallel('lint-scss', 'lint-js', 'js', 'css'));
+
+
+  gulp.watch('./dist/**/*.html').on('change', browserSync.reload);
 });
 
 //Lint scss.

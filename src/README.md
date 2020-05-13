@@ -10,8 +10,8 @@ To install:
 
 To Run:
 - npm run will list all commands known.
-- npm run dev : this runs gulp build and watch and eleventy --serve
--- This first build the site from the src folder, compiling the scss to css, and js will be run through babel and compiled. Watch will catch any changes to these files during development and compile to the dist folder. Eleventy serve is the native eleventy command for generating a local site.
+- npm run dev : this runs gulp build,  watch and eleventy --watch
+-- This first build the site from the src folder, compiling the scss to css, and js will be run through babel and compiled. Watch will catch any changes to these files during development and compile to the dist folder. The default eleventy watch command is not used because we redefined the browser sync setup to use our own.
 - Other tasks can be reviewed in the gulp.js file, and can be added or removed from package.json as required.
 
 To Note:
