@@ -15,4 +15,4 @@ To Run:
 - Other tasks can be reviewed in the gulp.js file, and can be added or removed from package.json as required.
 
 To Note:
-  The eleventy.js file defines the src and dist files. It also passes through images.
+  The eleventy.js file defines the src and dist files. There is also a markdown library to allow such things as inline images, classes etc.
