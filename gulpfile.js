@@ -7,10 +7,15 @@ const autoprefixer = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
 const rename = require('gulp-rename');
+const imagemin = require('gulp-imagemin');
 var browserSync = require('browser-sync').create();
 
-// The css command that compiles the scss to css and moves it to dist.
-gulp.task('css', function () {
+
+/**
+ * Runs the css compile task
+ * @returns {object} Linter is run.
+ */
+function css() {
   return gulp
     .src('./src/style/*.scss')
     .pipe(sass())
@@ -19,10 +24,13 @@ gulp.task('css', function () {
     .on('error', sass.logError)
     .pipe(gulp.dest('./dist/style/'))
     .pipe(browserSync.stream());
-});
+}
 
-// The js command that runs the src js through babel and move it to dist.
-gulp.task('js', function () {
+/**
+ * Runs the css compile task
+ * @returns {object} Linter is run.
+ */
+function js() {
   return gulp
     .src(['./src/js/*.js'], { base: './' })
     .pipe(sourcemaps.init())
@@ -36,25 +44,31 @@ gulp.task('js', function () {
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./dist/js'))
     .pipe(browserSync.stream());
-});
+}
 
-// The watch command, that watches scss and js files for changes.
-// It then runs the lint and compile commands.
-gulp.task('watch', function () {
+/**
+ * Runs the watch compile task
+ * @returns {object} run tasks when changed.
+ */
+function watchFiles() {
   browserSync.init({
     server: {
       baseDir: './dist/'
     }
   });
   gulp.watch(['./src/style/**/*.scss', './src/js/**/*.js'],
-    gulp.parallel('lint-scss', 'lint-js', 'js', 'css'));
+    gulp.parallel(lintScss, lintJs, js, css));
 
 
   gulp.watch('./dist/**/*.html').on('change', browserSync.reload);
-});
+  gulp.watch('./dist/*.html').on('change', browserSync.reload);
+}
 
-//Lint scss.
-gulp.task('lint-scss', function lintCssTask() {
+/**
+ * Runs the css lint task
+ * @returns {object} Linter is run.
+ */
+function lintScss() {
   const gulpStylelint = require('gulp-stylelint');
 
   return gulp
@@ -69,17 +83,39 @@ gulp.task('lint-scss', function lintCssTask() {
         ]
       })
     );
-});
+}
 
-// Lint js.
-gulp.task('lint-js', function lintJsTask() {
+/**
+ * Runs the js lint task
+ * @returns {object} Linter is run.
+ */
+function lintJs() {
   const eslint = require('gulp-eslint');
 
   return gulp
     .src('src/**/*.js')
     .pipe(eslint())
     .pipe(eslint.format());
-});
+}
+
+/**
+ * Runs the image optimization task
+ * @returns {object} The images are moved to dist.
+ */
+function minImageTask() {
+  return gulp
+    .src('src/img/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('dist/img'));
+}
 
 // The build command lints scss, lints js, compile js, compiles css.
-gulp.task('build', gulp.parallel('lint-scss', 'lint-js', 'js', 'css'));
+const build = gulp.parallel(lintScss, lintJs, js, css, minImageTask);
+
+exports.build = build;
+exports.watchFiles = watchFiles;
+exports.js = js;
+exports.css = css;
+exports.lintScss = lintScss;
+exports.lintJs = lintJs;
+exports.images = minImageTask;
